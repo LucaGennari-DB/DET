@@ -3,4 +3,5 @@ print("test")
 
 # COMMAND ----------
 
-
+a = 10
+print(a)
