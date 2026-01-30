@@ -1,0 +1,34 @@
+resources:
+  jobs:
+    Dev_Workflow_Using_the_SDK_labuser13634181_1769758678:
+      name: Dev Workflow Using the SDK_labuser13634181_1769758678
+      description: Final Workflow SDK
+      tasks:
+        - task_key: Unit_Tests
+          notebook_task:
+            notebook_path: /Workspace/Users/labuser13634181_1769758678@vocareum.com/devops-essentials-for-data-engineering-en_us-2.1.0/DevOps
+              Essentials for Data Engineering/Run Unit Tests
+            source: WORKSPACE
+          description: Execute unit tests for project.
+        - task_key: Visualization
+          depends_on:
+            - task_key: Health_ETL
+          notebook_task:
+            notebook_path: /Workspace/Users/labuser13634181_1769758678@vocareum.com/devops-essentials-for-data-engineering-en_us-2.1.0/DevOps
+              Essentials for Data Engineering/src/Final Visualization
+            base_parameters:
+              catalog_name: labuser13634181_1769758678
+            source: WORKSPACE
+          description: Final visualization for project.
+        - task_key: Health_ETL
+          depends_on:
+            - task_key: Unit_Tests
+          pipeline_task:
+            pipeline_id: 86010fad-7c1e-48f6-a412-89363a6a2e75
+            full_refresh: true
+          description: Spark Declarative Pipeline
+      parameters:
+        - name: target
+          default: dev
+        - name: catalog_name
+          default: labuser13634181_1769758678
